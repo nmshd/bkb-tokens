@@ -1,6 +1,7 @@
 ﻿using System;
 using Azure.Identity;
 using Enmeshed.BuildingBlocks.API.Extensions;
+using Enmeshed.Tooling.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +15,7 @@ namespace Tokens.API
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build()
-                .MigrateDbContext<ApplicationDbContext>((context, services) => { });
+                .MigrateDbContext<ApplicationDbContext>((_, _) => { });
 
             host.Run();
         }
@@ -25,7 +26,7 @@ namespace Tokens.API
                 .UseKestrel(options =>
                 {
                     options.AddServerHeader = false;
-                    options.Limits.MaxRequestBodySize = 2 * 1024 * 1024; // 2 MB
+                    options.Limits.MaxRequestBodySize = 2.Mebibytes();
                 })
                 .ConfigureAppConfiguration(AddAzureAppConfiguration)
                 .UseStartup<Startup>();

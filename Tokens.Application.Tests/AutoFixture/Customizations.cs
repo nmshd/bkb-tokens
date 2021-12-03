@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoFixture;
-using Tokens.Application.Tokens.Commands.CreateToken;
 using Enmeshed.Tooling;
+using Tokens.Application.Tokens.Commands.CreateToken;
 
 namespace Tokens.Application.Tests.AutoFixture
 {

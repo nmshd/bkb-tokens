@@ -8,6 +8,7 @@ using Enmeshed.BuildingBlocks.API.Mvc.ExceptionFilters;
 using Enmeshed.BuildingBlocks.API.Mvc.JsonConverters;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.UserContext;
 using Enmeshed.BuildingBlocks.Infrastructure.UserContext;
+using Enmeshed.Tooling.JsonConverters;
 using FluentValidation;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -20,7 +21,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tokens.API.ApplicationInsights.TelemetryInitializers;
 using Tokens.API.Certificates;
-using Enmeshed.Tooling.JsonConverters;
 
 namespace Tokens.API.Extensions
 {
@@ -107,7 +107,7 @@ namespace Tokens.API.Extensions
             services.AddSingleton<ITelemetryInitializer, UserInformationTelemetryInitializer>();
             services.AddSingleton<ITelemetryInitializer, CloudRoleNameTelemetryInitializer>();
 
-            services.ConfigureTelemetryModule<EventCounterCollectionModule>((module, o) =>
+            services.ConfigureTelemetryModule<EventCounterCollectionModule>((module, _) =>
             {
                 module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "alloc-rate"));
                 module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "cpu-usage"));

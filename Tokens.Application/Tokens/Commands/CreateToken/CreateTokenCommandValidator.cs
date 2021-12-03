@@ -1,13 +1,14 @@
 ﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions;
 using Enmeshed.BuildingBlocks.Application.FluentValidation;
-using FluentValidation;
 using Enmeshed.Tooling;
+using Enmeshed.Tooling.Extensions;
+using FluentValidation;
 
 namespace Tokens.Application.Tokens.Commands.CreateToken
 {
     public class CreateTokenCommandValidator : AbstractValidator<CreateTokenCommand>
     {
-        private const int MAX_CONTENT_LENGTH = 10 * 1024 * 1024;
+        private static readonly int MAX_CONTENT_LENGTH = 10.Mebibytes();
 
         public CreateTokenCommandValidator()
         {

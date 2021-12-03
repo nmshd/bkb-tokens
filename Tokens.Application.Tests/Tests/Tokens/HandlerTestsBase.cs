@@ -3,12 +3,12 @@ using AutoFixture;
 using AutoMapper;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.UserContext;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
+using Enmeshed.Tooling;
 using Moq;
 using Tokens.Application.AutoMapper;
 using Tokens.Application.Infrastructure;
 using Tokens.Application.Tests.AutoFixture;
 using Tokens.Infrastructure.Persistence.Database;
-using Enmeshed.Tooling;
 
 namespace Tokens.Application.Tests.Tests.Tokens
 {
