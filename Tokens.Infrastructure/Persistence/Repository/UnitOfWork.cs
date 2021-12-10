@@ -15,7 +15,6 @@ public class UnitOfWork : IUnitOfWork
         _blobStorage = blobStorage;
 
         Tokens = new TokenRepository(context, blobStorage);
-        ;
     }
 
     public ITokenRepository Tokens { get; }

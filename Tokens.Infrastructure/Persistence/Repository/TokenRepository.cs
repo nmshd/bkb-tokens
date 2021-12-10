@@ -70,8 +70,10 @@ public class TokenRepository : ITokenRepository
 
         var query = _readonlyTokensDbSet.Where(Token.IsNotExpired);
 
-        if (ids.Any())
-            query = query.Where(t => ids.Contains(t.Id));
+        var idsArray = ids as TokenId[] ?? ids.ToArray();
+
+        if (idsArray.Any())
+            query = query.Where(t => idsArray.Contains(t.Id));
 
         if (owner != null)
             query = query.Where(t => t.CreatedBy == owner);

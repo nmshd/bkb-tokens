@@ -4,6 +4,7 @@ using FluentValidation;
 
 namespace Tokens.Application.Tokens.Queries.ListTokens;
 
+// ReSharper disable once UnusedMember.Global
 public class ListTokensQueryValidator : AbstractValidator<ListTokensQuery>
 {
     public ListTokensQueryValidator()
