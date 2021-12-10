@@ -1,12 +1,11 @@
 ﻿using AutoFixture;
 
-namespace Tokens.Application.Tests.AutoFixture
+namespace Tokens.Application.Tests.AutoFixture;
+
+public class CustomFixture : Fixture
 {
-    public class CustomFixture : Fixture
+    public CustomFixture()
     {
-        public CustomFixture()
-        {
-            Customize(new Customizations());
-        }
+        Customize(new Customizations());
     }
 }

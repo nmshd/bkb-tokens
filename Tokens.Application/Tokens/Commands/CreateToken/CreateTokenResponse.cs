@@ -1,11 +1,10 @@
 ﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Mapping;
 using Tokens.Domain.Entities;
 
-namespace Tokens.Application.Tokens.Commands.CreateToken
+namespace Tokens.Application.Tokens.Commands.CreateToken;
+
+public class CreateTokenResponse : IMapTo<Token>
 {
-    public class CreateTokenResponse : IMapTo<Token>
-    {
-        public TokenId Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-    }
+    public TokenId Id { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

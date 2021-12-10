@@ -1,9 +1,8 @@
-﻿namespace Tokens.Application.Infrastructure
-{
-    public interface IUnitOfWork : IDisposable
-    {
-        ITokenRepository Tokens { get; }
+﻿namespace Tokens.Application.Infrastructure;
 
-        Task SaveAsync();
-    }
+public interface IUnitOfWork : IDisposable
+{
+    ITokenRepository Tokens { get; }
+
+    Task SaveAsync();
 }

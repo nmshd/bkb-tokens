@@ -1,4 +1,3 @@
-﻿namespace Tokens.API.Pagination
-{
-    public class PaginationRequest { }
-}
+﻿namespace Tokens.API.Pagination;
+
+public class PaginationRequest { }

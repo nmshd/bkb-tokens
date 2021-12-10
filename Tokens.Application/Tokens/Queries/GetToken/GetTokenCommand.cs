@@ -2,10 +2,9 @@
 using Tokens.Application.Tokens.DTOs;
 using Tokens.Domain.Entities;
 
-namespace Tokens.Application.Tokens.Queries.GetToken
+namespace Tokens.Application.Tokens.Queries.GetToken;
+
+public class GetTokenCommand : IRequest<TokenDTO>
 {
-    public class GetTokenCommand : IRequest<TokenDTO>
-    {
-        public TokenId Id { get; set; }
-    }
+    public TokenId Id { get; set; }
 }

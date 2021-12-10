@@ -1,13 +1,12 @@
-﻿namespace Tokens.Application
-{
-    public class ApplicationOptions
-    {
-        public PaginationOptions Pagination { get; set; } = new();
-    }
+﻿namespace Tokens.Application;
 
-    public class PaginationOptions
-    {
-        public int MaxPageSize { get; set; }
-        public int DefaultPageSize { get; set; }
-    }
+public class ApplicationOptions
+{
+    public PaginationOptions Pagination { get; set; } = new();
+}
+
+public class PaginationOptions
+{
+    public int MaxPageSize { get; set; }
+    public int DefaultPageSize { get; set; }
 }

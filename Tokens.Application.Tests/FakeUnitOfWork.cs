@@ -1,21 +1,20 @@
 ﻿using Tokens.Application.Infrastructure;
 
-namespace Tokens.Application.Tests
+namespace Tokens.Application.Tests;
+
+public class FakeUnitOfWork : IUnitOfWork
 {
-    public class FakeUnitOfWork : IUnitOfWork
+    public FakeUnitOfWork(ITokenRepository tokenRepository)
     {
-        public FakeUnitOfWork(ITokenRepository tokenRepository)
-        {
-            Tokens = tokenRepository;
-        }
+        Tokens = tokenRepository;
+    }
 
-        public void Dispose() { }
+    public void Dispose() { }
 
-        public ITokenRepository Tokens { get; }
+    public ITokenRepository Tokens { get; }
 
-        public Task SaveAsync()
-        {
-            return Task.CompletedTask;
-        }
+    public Task SaveAsync()
+    {
+        return Task.CompletedTask;
     }
 }
