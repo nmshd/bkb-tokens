@@ -1,4 +1,3 @@
-﻿namespace Tokens.Application
-{
-    public static class ApplicationErrors { }
-}
+﻿namespace Tokens.Application;
+
+public static class ApplicationErrors { }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿namespace Tokens.Application.Infrastructure;
 
-namespace Tokens.Application.Infrastructure
+public interface IUnitOfWork : IDisposable
 {
-    public interface IUnitOfWork : IDisposable
-    {
-        ITokenRepository Tokens { get; }
+    ITokenRepository Tokens { get; }
 
-        Task SaveAsync();
-    }
+    Task SaveAsync();
 }

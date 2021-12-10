@@ -6,17 +6,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Tokens.Application.AutoMapper;
 using Tokens.Application.Tokens.Commands.CreateToken;
 
-namespace Tokens.Application.Extensions
+namespace Tokens.Application.Extensions;
+
+public static class IServiceCollectionExtensions
 {
-    public static class IServiceCollectionExtensions
+    public static void AddApplication(this IServiceCollection services)
     {
-        public static void AddApplication(this IServiceCollection services)
-        {
-            services.AddMediatR(typeof(CreateTokenCommand).GetTypeInfo().Assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
-            services.AddValidatorsFromAssembly(typeof(CreateTokenCommandValidator).Assembly);
-        }
+        services.AddMediatR(typeof(CreateTokenCommand).GetTypeInfo().Assembly);
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+        services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+        services.AddValidatorsFromAssembly(typeof(CreateTokenCommandValidator).Assembly);
     }
 }
