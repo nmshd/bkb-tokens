@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Enmeshed.BuildingBlocks.Application.Pagination;
+﻿using Enmeshed.BuildingBlocks.Application.Pagination;
 using Tokens.Application.Tokens.DTOs;
 
 namespace Tokens.Application.Tokens.Queries.ListTokens

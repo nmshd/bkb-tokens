@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace Tokens.API.Extensions
+﻿namespace Tokens.API.Extensions
 {
     public static class IHostEnvironmentExtensions
     {

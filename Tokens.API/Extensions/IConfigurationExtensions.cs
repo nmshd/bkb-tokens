@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics.CodeAnalysis;
 using Tokens.Infrastructure.EventBus;
 
 namespace Tokens.API.Extensions

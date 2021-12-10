@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Tokens.Application.Infrastructure;
+﻿using Tokens.Application.Infrastructure;
 
 namespace Tokens.Application.Tests
 {

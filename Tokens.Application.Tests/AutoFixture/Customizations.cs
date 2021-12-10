@@ -1,5 +1,4 @@
-﻿using System;
-using AutoFixture;
+﻿using AutoFixture;
 using Enmeshed.Tooling;
 using Tokens.Application.Tokens.Commands.CreateToken;
 

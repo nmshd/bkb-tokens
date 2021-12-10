@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Tokens.Application.Infrastructure
+﻿namespace Tokens.Application.Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {

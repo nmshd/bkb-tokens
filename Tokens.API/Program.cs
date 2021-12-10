@@ -1,10 +1,7 @@
-﻿using System;
-using Azure.Identity;
+﻿using Azure.Identity;
 using Enmeshed.BuildingBlocks.API.Extensions;
 using Enmeshed.Tooling.Extensions;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Tokens.API.Extensions;
 using Tokens.Infrastructure.Persistence.Database;
 

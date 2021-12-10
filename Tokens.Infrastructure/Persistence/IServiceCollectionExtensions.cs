@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Tokens.Infrastructure.Persistence.Database;
 using Tokens.Infrastructure.Persistence.Repository;
 

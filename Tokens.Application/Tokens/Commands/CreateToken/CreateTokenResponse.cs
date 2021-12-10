@@ -1,5 +1,4 @@
-﻿using System;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Mapping;
+﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Mapping;
 using Tokens.Domain.Entities;
 
 namespace Tokens.Application.Tokens.Commands.CreateToken

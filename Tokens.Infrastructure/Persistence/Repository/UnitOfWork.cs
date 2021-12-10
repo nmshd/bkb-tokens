@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.BlobStorage;
+﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.BlobStorage;
 using Tokens.Application.Infrastructure;
 using Tokens.Infrastructure.Persistence.Database;
 
