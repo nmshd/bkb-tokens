@@ -2,49 +2,42 @@
 using Enmeshed.BuildingBlocks.API.Extensions;
 using Enmeshed.Tooling.Extensions;
 using Microsoft.AspNetCore;
+using Tokens.API;
 using Tokens.API.Extensions;
 using Tokens.Infrastructure.Persistence.Database;
 
-namespace Tokens.API;
+CreateWebHostBuilder(args)
+    .Build()
+    .MigrateDbContext<ApplicationDbContext>((_, _) => { })
+    .Run();
 
-public class Program
+static IWebHostBuilder CreateWebHostBuilder(string[] args)
 {
-    public static void Main(string[] args)
-    {
-        var host = CreateWebHostBuilder(args).Build()
-            .MigrateDbContext<ApplicationDbContext>((_, _) => { });
+    return WebHost.CreateDefaultBuilder(args)
+        .UseKestrel(options =>
+        {
+            options.AddServerHeader = false;
+            options.Limits.MaxRequestBodySize = 2.Mebibytes();
+        })
+        .ConfigureAppConfiguration(AddAzureAppConfiguration)
+        .UseStartup<Startup>();
+}
 
-        host.Run();
-    }
+static void AddAzureAppConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder builder)
+{
+    var configuration = builder.Build();
 
-    private static IWebHostBuilder CreateWebHostBuilder(string[] args)
-    {
-        return WebHost.CreateDefaultBuilder(args)
-            .UseKestrel(options =>
-            {
-                options.AddServerHeader = false;
-                options.Limits.MaxRequestBodySize = 2.Mebibytes();
-            })
-            .ConfigureAppConfiguration(AddAzureAppConfiguration)
-            .UseStartup<Startup>();
-    }
+    var azureAppConfigurationConfiguration = configuration.GetAzureAppConfigurationConfiguration();
 
-    private static void AddAzureAppConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder builder)
-    {
-        var configuration = builder.Build();
+    if (azureAppConfigurationConfiguration.Enabled)
+        builder.AddAzureAppConfiguration(appConfigurationOptions =>
+        {
+            var credentials = new ManagedIdentityCredential();
 
-        var azureAppConfigurationConfiguration = configuration.GetAzureAppConfigurationConfiguration();
-
-        if (azureAppConfigurationConfiguration.Enabled)
-            builder.AddAzureAppConfiguration(appConfigurationOptions =>
-            {
-                var credentials = new ManagedIdentityCredential();
-
-                appConfigurationOptions
-                    .Connect(new Uri(azureAppConfigurationConfiguration.Endpoint), credentials)
-                    .ConfigureKeyVault(vaultOptions => { vaultOptions.SetCredential(credentials); })
-                    .Select("*", "")
-                    .Select("*", "Tokens");
-            });
-    }
+            appConfigurationOptions
+                .Connect(new Uri(azureAppConfigurationConfiguration.Endpoint), credentials)
+                .ConfigureKeyVault(vaultOptions => { vaultOptions.SetCredential(credentials); })
+                .Select("*", "")
+                .Select("*", "Tokens");
+        });
 }
