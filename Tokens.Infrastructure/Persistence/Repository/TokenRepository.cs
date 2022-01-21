@@ -85,7 +85,7 @@ public class TokenRepository : ITokenRepository
 
         return dbPaginationResult;
     }
-    
+
     private async Task FillContent(IEnumerable<Token> tokens)
     {
         var fillContentTasks = tokens.Select(FillContent);
