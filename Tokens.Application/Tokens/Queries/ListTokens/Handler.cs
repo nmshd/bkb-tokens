@@ -11,10 +11,10 @@ public class Handler : QueryHandlerBase<ListTokensQuery, ListTokensResponse>
 
     public override async Task<ListTokensResponse> Handle(ListTokensQuery request, CancellationToken cancellationToken)
     {
-        var (totalRecords, tokens) = request.Ids.Any()
+        var dbPaginationResult = request.Ids.Any()
             ? await _tokenRepository.FindAllWithIds(request.Ids, request.PaginationFilter)
             : await _tokenRepository.FindAllOfOwner(_activeIdentity, request.PaginationFilter);
 
-        return new ListTokensResponse(_mapper.Map<IEnumerable<TokenDTO>>(tokens), request.PaginationFilter, totalRecords);
+        return new ListTokensResponse(_mapper.Map<IEnumerable<TokenDTO>>(dbPaginationResult.ItemsOnPage), request.PaginationFilter, dbPaginationResult.TotalNumberOfItems);
     }
 }
