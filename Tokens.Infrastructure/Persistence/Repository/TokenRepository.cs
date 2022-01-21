@@ -1,5 +1,6 @@
 ﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.BlobStorage;
+using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.Database;
 using Enmeshed.BuildingBlocks.Application.Extensions;
 using Enmeshed.BuildingBlocks.Application.Pagination;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
@@ -43,12 +44,12 @@ public class TokenRepository : ITokenRepository
         return token;
     }
 
-    public async Task<FindTokensResult> FindAllWithIds(IEnumerable<TokenId> ids, PaginationFilter paginationFilter)
+    public async Task<DbPaginationResult<Token>> FindAllWithIds(IEnumerable<TokenId> ids, PaginationFilter paginationFilter)
     {
         return await Find(null, ids, paginationFilter);
     }
 
-    public async Task<FindTokensResult> FindAllOfOwner(IdentityAddress owner, PaginationFilter paginationFilter)
+    public async Task<DbPaginationResult<Token>> FindAllOfOwner(IdentityAddress owner, PaginationFilter paginationFilter)
     {
         return await Find(owner, Array.Empty<TokenId>(), paginationFilter);
     }
@@ -63,7 +64,7 @@ public class TokenRepository : ITokenRepository
         return result.CreatedBy;
     }
 
-    private async Task<FindTokensResult> Find(IdentityAddress owner, IEnumerable<TokenId> ids, PaginationFilter paginationFilter)
+    private async Task<DbPaginationResult<Token>> Find(IdentityAddress owner, IEnumerable<TokenId> ids, PaginationFilter paginationFilter)
     {
         if (paginationFilter == null)
             throw new Exception("A pagination filter has to be provided.");
@@ -78,27 +79,13 @@ public class TokenRepository : ITokenRepository
         if (owner != null)
             query = query.Where(t => t.CreatedBy == owner);
 
-        var totalNumberOfItems = await query.CountAsync();
+        var dbPaginationResult = await query.OrderAndPaginate(d => d.CreatedAt, paginationFilter);
 
-        var tokens = await query
-            .OrderBy(t => t.CreatedAt)
-            .Paged(paginationFilter)
-            .ToListAsync();
+        await FillContent(dbPaginationResult.ItemsOnPage);
 
-        await FillContent(tokens);
-
-        return new FindTokensResult(totalNumberOfItems, tokens);
+        return dbPaginationResult;
     }
-
-    public async Task<int> GetNumberOfTokensOfOwner(IdentityAddress owner)
-    {
-        var numberOfTokens = await _readonlyTokensDbSet
-            .Where(t => t.CreatedBy == owner)
-            .CountAsync();
-
-        return numberOfTokens;
-    }
-
+    
     private async Task FillContent(IEnumerable<Token> tokens)
     {
         var fillContentTasks = tokens.Select(FillContent);
