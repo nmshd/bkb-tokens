@@ -14,11 +14,16 @@ public class ApplicationDbContext : AbstractDbContextBase
 
     public virtual DbSet<Token> Tokens { get; set; }
 
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+
+        configurationBuilder.Properties<TokenId>().AreUnicode(false).AreFixedLength().HaveMaxLength(TokenId.MAX_LENGTH).HaveConversion<TokenIdEntityFrameworkValueConverter>();
+    }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
-        builder.UseValueConverter(new TokenIdEntityFrameworkValueConverter(new ConverterMappingHints(TokenId.MAX_LENGTH)));
 
         builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
